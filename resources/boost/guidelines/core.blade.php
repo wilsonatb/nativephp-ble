@@ -21,6 +21,8 @@ php artisan native:plugin:list
 ### Requirements
 
 #### Android Permissions
+- `android.permission.BLUETOOTH_SCAN`
+- `android.permission.BLUETOOTH_CONNECT`
 - `android.permission.BLUETOOTH`
 - `android.permission.BLUETOOTH_ADMIN`
 - `android.permission.ACCESS_FINE_LOCATION`
@@ -88,6 +90,7 @@ Ble::setNotification(
 - `BleScanCompleted` - Listen with `#[OnNative(BleScanCompleted::class)]`
 - `BleDeviceConnected` - Listen with `#[OnNative(BleDeviceConnected::class)]`
 - `BleCharacteristicRead` - Listen with `#[OnNative(BleCharacteristicRead::class)]`
+- `BleCharacteristicWritten` - Listen with `#[OnNative(BleCharacteristicWritten::class)]`
 
 @verbatim
 <code-snippet name="Listening for Ble Events" lang="php">
@@ -95,6 +98,7 @@ use Native\Mobile\Attributes\OnNative;
 use Nativephp\Ble\Events\BleScanCompleted;
 use Nativephp\Ble\Events\BleDeviceConnected;
 use Nativephp\Ble\Events\BleCharacteristicRead;
+use Nativephp\Ble\Events\BleCharacteristicWritten;
 
 #[OnNative(BleScanCompleted::class)]
 public function handleBleScanCompleted($devices, $error = null)
@@ -112,6 +116,12 @@ public function handleBleDeviceConnected($deviceId, $connected, $error = null)
 public function handleBleCharacteristicRead($deviceId, $serviceUuid, $characteristicUuid, $value, $error = null)
 {
     // Handle characteristic reads
+}
+
+#[OnNative(BleCharacteristicWritten::class)]
+public function handleBleCharacteristicWritten($deviceId, $serviceUuid, $characteristicUuid, $success, $error = null)
+{
+    // Handle characteristic writes
 }
 </code-snippet>
 @endverbatim
@@ -144,18 +154,18 @@ off(Events.BleScanCompleted, scanHandler);
 ### Platform Notes
 
 **Android:**
-- Requires Android 5.0 (API 21) or higher for BLE support
+- Requires Android 8 (API 26) or higher
 - Location permission is required for scanning on Android 6.0+
 - Bluetooth must be enabled on the device
 
 **iOS:**
-- Requires iOS 10.0 or higher
+- Requires iOS 16.0 or higher
 - Requires `NSBluetoothAlwaysUsageDescription` and `NSBluetoothPeripheralUsageDescription` in Info.plist
 - Bluetooth permissions must be granted by the user
 
 ### Testing
 
-The plugin includes stub implementations for both Android and iOS. For production use, you may need to extend the native implementations with your specific BLE device requirements.
+The plugin includes native implementations for both Android and iOS and can be validated with `php artisan native:plugin:validate`.
 
 ### License
 

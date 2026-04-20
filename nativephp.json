@@ -1,5 +1,32 @@
 {
+    "name": "wilsonatb/nativephp-ble",
+    "version": "1.0.0",
+    "description": "NativePHP plugin for Bluetooth Low Energy (BLE) functionality including device scanning and connection",
     "namespace": "Ble",
+    "keywords": [
+        "nativephp",
+        "bluetooth",
+        "ble",
+        "mobile"
+    ],
+    "category": "utilities",
+    "license": "MIT",
+    "pricing": {
+        "type": "free"
+    },
+    "author": {
+        "name": "Wilson Tovar",
+        "email": "diwdesign.wilson@gmail.com",
+        "url": "https://diwdesign.com"
+    },
+    "homepage": "",
+    "repository": "",
+    "funding": [],
+    "platforms": [
+        "android",
+        "ios"
+    ],
+    "screenshots": [],
     "bridge_functions": [
         {
             "name": "Ble.scanDevices",
@@ -47,6 +74,16 @@
             "android.permission.BLUETOOTH_ADMIN",
             "android.permission.ACCESS_FINE_LOCATION"
         ],
+        "features": [
+            {
+                "name": "android.hardware.bluetooth",
+                "required": true
+            },
+            {
+                "name": "android.hardware.bluetooth_le",
+                "required": true
+            }
+        ],
         "dependencies": {
             "implementation": []
         },
@@ -66,12 +103,18 @@
             "pods": []
         }
     },
+    "assets": {
+        "android": [],
+        "ios": []
+    },
+    "secrets": [],
     "events": [
         "Nativephp\\Ble\\Events\\BleScanCompleted",
         "Nativephp\\Ble\\Events\\BleDeviceConnected",
         "Nativephp\\Ble\\Events\\BleCharacteristicRead",
         "Nativephp\\Ble\\Events\\BleCharacteristicWritten"
     ],
+    "service_provider": "Nativephp\\Ble\\BleServiceProvider",
     "hooks": {
         "copy_assets": "nativephp:ble:copy-assets"
     }
