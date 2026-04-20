@@ -1,0 +1,78 @@
+{
+    "namespace": "Ble",
+    "bridge_functions": [
+        {
+            "name": "Ble.scanDevices",
+            "android": "com.wilsonatb.plugins.ble.BleFunctions.ScanDevices",
+            "ios": "BleFunctions.ScanDevices",
+            "description": "Scan for nearby BLE devices"
+        },
+        {
+            "name": "Ble.connectToDevice",
+            "android": "com.wilsonatb.plugins.ble.BleFunctions.ConnectToDevice",
+            "ios": "BleFunctions.ConnectToDevice",
+            "description": "Connect to a BLE device"
+        },
+        {
+            "name": "Ble.disconnectDevice",
+            "android": "com.wilsonatb.plugins.ble.BleFunctions.DisconnectDevice",
+            "ios": "BleFunctions.DisconnectDevice",
+            "description": "Disconnect from a BLE device"
+        },
+        {
+            "name": "Ble.readCharacteristic",
+            "android": "com.wilsonatb.plugins.ble.BleFunctions.ReadCharacteristic",
+            "ios": "BleFunctions.ReadCharacteristic",
+            "description": "Read a BLE characteristic"
+        },
+        {
+            "name": "Ble.writeCharacteristic",
+            "android": "com.wilsonatb.plugins.ble.BleFunctions.WriteCharacteristic",
+            "ios": "BleFunctions.WriteCharacteristic",
+            "description": "Write to a BLE characteristic"
+        },
+        {
+            "name": "Ble.setNotification",
+            "android": "com.wilsonatb.plugins.ble.BleFunctions.SetNotification",
+            "ios": "BleFunctions.SetNotification",
+            "description": "Enable/disable notifications for a characteristic"
+        }
+    ],
+    "android": {
+        "min_version": 26,
+        "permissions": [
+            "android.permission.BLUETOOTH_SCAN",
+            "android.permission.BLUETOOTH_CONNECT",
+            "android.permission.BLUETOOTH",
+            "android.permission.BLUETOOTH_ADMIN",
+            "android.permission.ACCESS_FINE_LOCATION"
+        ],
+        "dependencies": {
+            "implementation": []
+        },
+        "activities": [],
+        "services": [],
+        "receivers": [],
+        "providers": []
+    },
+    "ios": {
+        "min_version": "16.0",
+        "info_plist": {
+            "NSBluetoothAlwaysUsageDescription": "This app needs Bluetooth access to scan and connect to BLE devices",
+            "NSBluetoothPeripheralUsageDescription": "This app needs Bluetooth access to communicate with BLE devices"
+        },
+        "dependencies": {
+            "swift_packages": [],
+            "pods": []
+        }
+    },
+    "events": [
+        "Nativephp\\Ble\\Events\\BleScanCompleted",
+        "Nativephp\\Ble\\Events\\BleDeviceConnected",
+        "Nativephp\\Ble\\Events\\BleCharacteristicRead",
+        "Nativephp\\Ble\\Events\\BleCharacteristicWritten"
+    ],
+    "hooks": {
+        "copy_assets": "nativephp:ble:copy-assets"
+    }
+}
